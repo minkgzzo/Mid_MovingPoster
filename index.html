@@ -4,6 +4,126 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Poster</title>
+
+    <style>
+      /*전체 화면*/
+      body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #c6cde9;
+        transition: background-color 0.4s ease;
+      }
+
+      /*박스 hover시 body 전체 배경색 변경 */
+      body:has(.grid-item:hover) {
+        background-color: #8b90a3;
+      }
+
+      /*박스들*/
+      .grid-container {
+        display: grid;
+        grid-template-columns: repeat(5, 120px);
+        grid-template-rows: repeat(5, 120px);
+        gap: 10px;
+      }
+
+      .grid-item {
+        background-color: #ffffff; /*박스 기본색*/
+        transition: all 0.4s ease;
+        position: relative;
+        z-index: 1;
+        overflow: hidden; /*확대 시, 내용 튀어나오지 않게*/
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /*hover 중 나머지 박스 색 변경*/
+      .grid-container:hover .grid-item {
+        background-color: #c6cde9;
+      }
+
+      .grid-container .grid-item:hover {
+        background: linear-gradient(to bottom, #6c141c, #ce332e);
+        transform: scale(1.5);
+        z-index: 3;
+      }
+
+      /*텍스트/이미지 숨김*/
+      .grid-item p,
+      .grid-item img {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      /*hover 시 부드럽게*/
+      .grid-item:hover p,
+      .grid-item:hover img {
+        opacity: 1;
+      }
+
+      .grid-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    </style>
   </head>
-  <body></body>
+
+  <body>
+    <div class="grid-container">
+      <!-- 1열-->
+      <div class="grid-item">
+        <p>🍎 사과</p>
+      </div>
+
+      <div class="grid-item">
+        <img src="asset/flamingo_02.png" />
+      </div>
+
+      <div class="grid-item"></div>
+
+      <div class="grid-item"></div>
+      <div class="grid-item"></div>
+      <!-- 2열 -->
+      <div class="grid-item"></div>
+      <div class="grid-item"></div>
+      <div class="grid-item"></div>
+      <div class="grid-item">
+        <img src="asset/lake_01.png" />
+      </div>
+      <div class="grid-item">
+        <img src="asset/lake_02.png" />
+      </div>
+      <!-- 3열 -->
+      <div class="grid-item"></div>
+      <div class="grid-item">
+        <img src="asset/knife_01.png" />
+      </div>
+      <div class="grid-item"></div>
+      <div class="grid-item"></div>
+      <div class="grid-item"></div>
+      <!-- 4열 -->
+      <div class="grid-item"></div>
+      <div class="grid-item"></div>
+      <div class="grid-item">
+        <img src="asset/wife_01.png" />
+      </div>
+      <div class="grid-item"></div>
+      <div class="grid-item">
+        <img src="asset/desk_01.png" />
+      </div>
+      <!-- 5열 -->
+      <div class="grid-item"></div>
+      <div class="grid-item"></div>
+      <div class="grid-item"></div>
+      <div class="grid-item">
+        <img src="asset/flamingo_03.png" />
+      </div>
+      <div class="grid-item"></div>
+    </div>
+  </body>
 </html>
