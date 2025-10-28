@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Opening</title>
+
+    <style>
+      /* 전체 화면 중앙 정렬 */
+      body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column; /* 세로 배치 */
+        justify-content: center;
+        align-items: center;
+        background-color: #c4d5ed;
+        font-family: "Noto Sans KR", sans-serif;
+      }
+
+      /* 이미지 */
+      .cover-image {
+        width: 550px; /* 원하는 크기로 조정 */
+        height: auto;
+        margin-bottom: 40px; /* 버튼과 간격 */
+        animation: fadeIn 1.2s ease;
+      }
+
+      /* 버튼 */
+      .start-button {
+        justify-content: center;
+        align-items: center;
+        padding: 16px 40px;
+        font-size: 20px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        color: #aec0d4;
+        font-weight: 600;
+        background: linear-gradient(
+          to right,
+          #b2e2f1 0%,
+          #f8fdd5 50%,
+          #f6b5d9 100%
+        );
+        transition: transform 0.6s ease, box-shadow 0.6s ease;
+      }
+
+      .start-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+      }
+
+      .start-button:active {
+        transform: scale(0.97);
+      }
+
+      /* 부드럽게 등장하는 효과 */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- 커버이미지 -->
+    <img src="asset/cover.png" class="cover-image" />
+
+    <!-- 버튼 -->
+    <button class="start-button" onclick="startPoster()">
+      홍학의 자리 찾기
+    </button>
+
+    <script>
+      function startPoster() {
+        // fadeout하고 index.html로 이동
+        document.body.style.transition = "opacity 0.6s ease";
+        document.body.style.opacity = 0;
+        setTimeout(() => (window.location.href = "index.html"), 600);
+      }
+    </script>
+  </body>
+</html>

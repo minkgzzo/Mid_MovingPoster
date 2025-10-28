@@ -6,20 +6,20 @@
     <title>Poster</title>
 
     <style>
-      /*전체 화면*/
+      /* 전체 화면 */
       body {
         margin: 0;
         height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #c6cde9;
+        background-color: #aec0d4;
         transition: background-color 0.4s ease;
       }
 
       /*박스 hover시 body 전체 배경색 변경 */
       body:has(.grid-item:hover) {
-        background-color: #8b90a3;
+        background-color: #8995a6;
       }
 
       /*박스들*/
@@ -31,19 +31,20 @@
       }
 
       .grid-item {
-        background-color: #ffffff; /*박스 기본색*/
+        background-color: #ffffff;
         transition: all 0.4s ease;
         position: relative;
         z-index: 1;
-        overflow: hidden; /*확대 시, 내용 튀어나오지 않게*/
+        overflow: hidden;
         display: flex;
         justify-content: center;
         align-items: center;
+        cursor: pointer;
       }
 
       /*hover 중 나머지 박스 색 변경*/
       .grid-container:hover .grid-item {
-        background-color: #c6cde9;
+        background-color: #b3b3b3;
       }
 
       .grid-container .grid-item:hover {
@@ -52,14 +53,14 @@
         z-index: 3;
       }
 
-      /*텍스트/이미지 숨김*/
+      /* 텍스트/이미지 숨김 */
       .grid-item p,
       .grid-item img {
         opacity: 0;
         transition: opacity 0.3s ease;
       }
 
-      /*hover 시 부드럽게*/
+      /* hover 시 부드럽게 표시 */
       .grid-item:hover p,
       .grid-item:hover img {
         opacity: 1;
@@ -70,37 +71,61 @@
         height: 100%;
         object-fit: cover;
       }
+
+      /* ===== 좌우 사이드 이미지 ===== */
+      .side-img {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20vw; /* 화면의 25% */
+        height: auto;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 10;
+        pointer-events: none;
+      }
+
+      .side-img.left {
+        left: 70px;
+      }
+
+      .side-img.right {
+        right: 70px;
+      }
+
+      /* 표시될 때 */
+      .side-img.show {
+        opacity: 1;
+      }
     </style>
   </head>
 
   <body>
     <div class="grid-container">
       <!-- 1열-->
-      <div class="grid-item">
-        <p>🍎 사과</p>
+      <div class="grid-item" id="jh-box">
+        <img src="asset/jh_01.png" />
       </div>
-
-      <div class="grid-item">
-        <img src="asset/flamingo_02.png" />
-      </div>
-
       <div class="grid-item"></div>
-
+      <div class="grid-item"></div>
       <div class="grid-item"></div>
       <div class="grid-item"></div>
       <!-- 2열 -->
       <div class="grid-item"></div>
+      <div class="grid-item" id="flamingo-box">
+        <img src="asset/flamingo_02.png" />
+      </div>
       <div class="grid-item"></div>
-      <div class="grid-item"></div>
-      <div class="grid-item">
+      <div class="grid-item" id="lake1-box">
         <img src="asset/lake_01.png" />
       </div>
-      <div class="grid-item">
+      <div class="grid-item" id="lake2-box">
         <img src="asset/lake_02.png" />
       </div>
       <!-- 3열 -->
       <div class="grid-item"></div>
-      <div class="grid-item">
+      <div class="grid-item" id="knife-box">
         <img src="asset/knife_01.png" />
       </div>
       <div class="grid-item"></div>
@@ -109,11 +134,13 @@
       <!-- 4열 -->
       <div class="grid-item"></div>
       <div class="grid-item"></div>
-      <div class="grid-item">
+      <!-- wife 박스 -->
+      <div class="grid-item" id="wife-box">
         <img src="asset/wife_01.png" />
       </div>
+
       <div class="grid-item"></div>
-      <div class="grid-item">
+      <div class="grid-item" id="desk-box">
         <img src="asset/desk_01.png" />
       </div>
       <!-- 5열 -->
@@ -121,9 +148,212 @@
       <div class="grid-item"></div>
       <div class="grid-item"></div>
       <div class="grid-item">
-        <img src="asset/flamingo_03.png" />
+        <img src="asset/flamingo_03.png" id="flamingo2-box" />
       </div>
       <div class="grid-item"></div>
     </div>
+
+    <script>
+      const wifeBox = document.getElementById("wife-box");
+      const jhBox = document.getElementById("jh-box");
+      const flamingoBox = document.getElementById("flamingo-box");
+      const deskBox = document.getElementById("desk-box");
+      const knifeBox = document.getElementById("knife-box");
+      const lake1Box = document.getElementById("lake1-box");
+      const lake2Box = document.getElementById("lake2-box");
+      const flamingo2Box = document.getElementById("flamingo2-box");
+
+      // ========== wife 세트 ==========
+      const wifeLeft = document.createElement("img");
+      const wifeRight = document.createElement("img");
+      wifeLeft.src = "asset/side_wife_L.png";
+      wifeRight.src = "asset/side_wife_R.png";
+      wifeLeft.classList.add("side-img", "left");
+      wifeRight.classList.add("side-img", "right");
+      document.documentElement.appendChild(wifeLeft);
+      document.documentElement.appendChild(wifeRight);
+
+      // ========== jh 세트 ==========
+      const jhLeft = document.createElement("img");
+      const jhRight = document.createElement("img");
+      jhLeft.src = "asset/side_jh_L.png";
+      jhRight.src = "asset/side_jh_R.png";
+      jhLeft.classList.add("side-img", "left");
+      jhRight.classList.add("side-img", "right");
+      document.documentElement.appendChild(jhLeft);
+      document.documentElement.appendChild(jhRight);
+
+      // ========== flamingo 세트 ==========
+      const flamingoLeft = document.createElement("img");
+      const flamingoRight = document.createElement("img");
+      flamingoLeft.src = "asset/side_flamingo_L.png";
+      flamingoRight.src = "asset/side_flamingo_R.png";
+      flamingoLeft.classList.add("side-img", "left");
+      flamingoRight.classList.add("side-img", "right");
+      document.documentElement.appendChild(flamingoLeft);
+      document.documentElement.appendChild(flamingoRight);
+
+      // ========== desk 세트 ==========
+      const deskLeft = document.createElement("img");
+      const deskRight = document.createElement("img");
+      deskLeft.src = "asset/side_desk_L.png";
+      deskRight.src = "asset/side_desk_R.png";
+      deskLeft.classList.add("side-img", "left");
+      deskRight.classList.add("side-img", "right");
+      document.documentElement.appendChild(deskLeft);
+      document.documentElement.appendChild(deskRight);
+
+      // ========== knife 세트 ==========
+      const knifeLeft = document.createElement("img");
+      const knifeRight = document.createElement("img");
+      knifeLeft.src = "asset/side_knife_L.png";
+      knifeRight.src = "asset/side_knife_R.png";
+      knifeLeft.classList.add("side-img", "left");
+      knifeRight.classList.add("side-img", "right");
+      document.documentElement.appendChild(knifeLeft);
+      document.documentElement.appendChild(knifeRight);
+
+      // ========== lake1 세트 ==========
+      const lake1Left = document.createElement("img");
+      const lake1Right = document.createElement("img");
+      lake1Left.src = "asset/side_lake1_L.png";
+      lake1Right.src = "asset/side_lake1_R.png";
+      lake1Left.classList.add("side-img", "left");
+      lake1Right.classList.add("side-img", "right");
+      document.documentElement.appendChild(lake1Left);
+      document.documentElement.appendChild(lake1Right);
+
+      // ========== lake2 세트 ==========
+      const lake2Left = document.createElement("img");
+      const lake2Right = document.createElement("img");
+      lake2Left.src = "asset/side_lake2_L.png";
+      lake2Right.src = "asset/side_lake2_R.png";
+      lake2Left.classList.add("side-img", "left");
+      lake2Right.classList.add("side-img", "right");
+      document.documentElement.appendChild(lake2Left);
+      document.documentElement.appendChild(lake2Right);
+
+      // ========== flamingo2 세트 ==========
+      const flamingo2Left = document.createElement("img");
+      const flamingo2Right = document.createElement("img");
+      flamingo2Left.src = "asset/side_flamingo2_L.png";
+      flamingo2Right.src = "asset/side_flamingo2_R.png";
+      flamingo2Left.classList.add("side-img", "left");
+      flamingo2Right.classList.add("side-img", "right");
+      document.documentElement.appendChild(flamingo2Left);
+      document.documentElement.appendChild(flamingo2Right);
+
+      // ========= wife 박스 이벤트 =========
+      wifeBox.addEventListener("mousedown", () => {
+        wifeLeft.classList.add("show");
+        wifeRight.classList.add("show");
+      });
+      wifeBox.addEventListener("mouseup", () => {
+        wifeLeft.classList.remove("show");
+        wifeRight.classList.remove("show");
+      });
+      wifeBox.addEventListener("mouseleave", () => {
+        wifeLeft.classList.remove("show");
+        wifeRight.classList.remove("show");
+      });
+
+      // ========= jh 박스 이벤트 =========
+      jhBox.addEventListener("mousedown", () => {
+        jhLeft.classList.add("show");
+        jhRight.classList.add("show");
+      });
+      jhBox.addEventListener("mouseup", () => {
+        jhLeft.classList.remove("show");
+        jhRight.classList.remove("show");
+      });
+      jhBox.addEventListener("mouseleave", () => {
+        jhLeft.classList.remove("show");
+        jhRight.classList.remove("show");
+      });
+
+      // ========= flamingo 박스 이벤트 =========
+      flamingoBox.addEventListener("mousedown", () => {
+        flamingoLeft.classList.add("show");
+        flamingoRight.classList.add("show");
+      });
+      flamingoBox.addEventListener("mouseup", () => {
+        flamingoLeft.classList.remove("show");
+        flamingoRight.classList.remove("show");
+      });
+      flamingoBox.addEventListener("mouseleave", () => {
+        flamingoLeft.classList.remove("show");
+        flamingoRight.classList.remove("show");
+      });
+
+      // ========= desk 박스 이벤트 =========
+      deskBox.addEventListener("mousedown", () => {
+        deskLeft.classList.add("show");
+        deskRight.classList.add("show");
+      });
+      deskBox.addEventListener("mouseup", () => {
+        deskLeft.classList.remove("show");
+        deskRight.classList.remove("show");
+      });
+      deskBox.addEventListener("mouseleave", () => {
+        deskLeft.classList.remove("show");
+        deskRight.classList.remove("show");
+      });
+
+      // ========= knife 박스 이벤트 =========
+      knifeBox.addEventListener("mousedown", () => {
+        knifeLeft.classList.add("show");
+        knifeRight.classList.add("show");
+      });
+      knifeBox.addEventListener("mouseup", () => {
+        knifeLeft.classList.remove("show");
+        knifeRight.classList.remove("show");
+      });
+      knifeBox.addEventListener("mouseleave", () => {
+        knifeLeft.classList.remove("show");
+        knifeRight.classList.remove("show");
+      });
+
+      // ========= lake1 박스 이벤트 =========
+      lake1Box.addEventListener("mousedown", () => {
+        lake1Left.classList.add("show");
+        lake1Right.classList.add("show");
+      });
+      lake1Box.addEventListener("mouseup", () => {
+        lake1Left.classList.remove("show");
+        lake1Right.classList.remove("show");
+      });
+      lake1Box.addEventListener("mouseleave", () => {
+        lake1Left.classList.remove("show");
+        lake1Right.classList.remove("show");
+      });
+
+      // ========= lake2 박스 이벤트 =========
+      lake2Box.addEventListener("mousedown", () => {
+        lake2Left.classList.add("show");
+        lake2Right.classList.add("show");
+      });
+      lake2Box.addEventListener("mouseup", () => {
+        lake2Left.classList.remove("show");
+        lake2Right.classList.remove("show");
+      });
+      lake2Box.addEventListener("mouseleave", () => {
+        lake2Left.classList.remove("show");
+        lake2Right.classList.remove("show");
+      });
+
+      // ========= flamingo2 박스 이벤트 =========
+      flamingo2Box.addEventListener("mousedown", () => {
+        flamingo2Left.classList.add("show");
+        flamingo2Right.classList.add("show");
+      });
+      flamingo2Box.addEventListener("mouseup", () => {
+        flamingo2Left.classList.remove("show");
+        flamingo2Right.classList.remove("show");
+      });
+      flamingo2Box.addEventListener("mouseleave", () => {
+        flamingo2Left.classList.remove("show");
+        flamingo2Right.classList.remove("show");
+      });
+    </script>
   </body>
 </html>
